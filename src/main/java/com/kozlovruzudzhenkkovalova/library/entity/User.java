@@ -1,7 +1,10 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +22,8 @@ import java.util.Date;
 import java.util.Set;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity(name = "reader")
 @EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity{
@@ -54,7 +59,7 @@ public class User extends BaseEntity{
   @Size(min = 8, max = 25)
   private String password;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   @JoinTable(
       name = "role_user",
       joinColumns = {@JoinColumn(name = "reader_id")},

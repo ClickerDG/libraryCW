@@ -1,5 +1,6 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Builder
 @EqualsAndHashCode(callSuper = true)
 public class Role extends BaseEntity {
   @Id
