@@ -1,7 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class Genre extends BaseEntity {
+public class Genre implements Serializable {
 
   @Id
   @GeneratedValue

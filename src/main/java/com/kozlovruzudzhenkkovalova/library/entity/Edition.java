@@ -1,7 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,12 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class Edition extends BaseEntity{
+public class Edition implements Serializable {
 
   @Id
   @GeneratedValue
@@ -58,10 +59,10 @@ public class Edition extends BaseEntity{
   )
   private Set<Author> authors;
 
-  @OneToMany(mappedBy = "edition", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+  @OneToMany(mappedBy = "edition", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<Review> reviews;
 
-  @OneToMany(mappedBy = "edition", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+  @OneToMany(mappedBy = "edition", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
 
 }

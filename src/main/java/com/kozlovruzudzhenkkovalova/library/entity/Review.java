@@ -1,7 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class Review extends BaseEntity{
+public class Review implements Serializable {
 
   @Id
   @GeneratedValue

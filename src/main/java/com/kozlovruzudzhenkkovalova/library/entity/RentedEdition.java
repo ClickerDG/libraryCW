@@ -1,7 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class RentedEdition extends BaseEntity {
+public class RentedEdition implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "rent_id")
