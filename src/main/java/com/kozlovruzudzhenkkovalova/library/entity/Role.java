@@ -1,8 +1,10 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
-@EqualsAndHashCode(callSuper = true)
-public class Role extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "role_id")

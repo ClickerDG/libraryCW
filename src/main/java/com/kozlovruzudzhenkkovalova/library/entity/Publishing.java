@@ -1,21 +1,21 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class Publishing extends BaseEntity{
+public class Publishing implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "publish_id")
@@ -24,6 +24,6 @@ public class Publishing extends BaseEntity{
   @Column(name = "full_name")
   private String fullName;
 
-  @OneToMany(mappedBy = "publishing", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+  @OneToMany(mappedBy = "publishing", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<Edition> editions;
 }

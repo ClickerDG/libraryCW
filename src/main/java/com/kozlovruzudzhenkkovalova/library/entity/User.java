@@ -2,31 +2,31 @@ package com.kozlovruzudzhenkkovalova.library.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "reader")
-@EqualsAndHashCode(callSuper = true)
-public class User extends BaseEntity{
+public class User implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "reader_id")
@@ -55,11 +55,10 @@ public class User extends BaseEntity{
   @Size(min = 5, max = 25)
   private String username;
 
-  @Column(name = "password", length = 25)
-  @Size(min = 8, max = 25)
+  @Column(name = "password")
   private String password;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(
       name = "role_user",
       joinColumns = {@JoinColumn(name = "reader_id")},
@@ -67,10 +66,10 @@ public class User extends BaseEntity{
   )
   Set<Role> roles;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<Review> reviews;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
 
 }
