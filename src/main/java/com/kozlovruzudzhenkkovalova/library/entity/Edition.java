@@ -35,6 +35,9 @@ public class Edition implements Serializable {
   @Size(max = 10)
   private String year;
 
+  @Column(name = "image_url")
+  private String imageUrl;
+
   @ManyToOne
   @JoinColumn(name = "type_id", nullable = false)
   private EditionType editionType;
