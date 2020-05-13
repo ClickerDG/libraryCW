@@ -32,7 +32,7 @@ CREATE TABLE author
 
 CREATE TABLE edition
 (
-    isbn INTEGER PRIMARY KEY,
+    isbn VARCHAR(25) PRIMARY KEY,
     edition_name VARCHAR(256) NOT NULL,
     edition_year VARCHAR(10) NOT NULL,
     edition_description text NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE edition
 );
 CREATE TABLE author_edition
 (
-    isbn INTEGER NOT NULL,
+    isbn VARCHAR(25) NOT NULL,
     author_id SMALLINT NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
     FOREIGN KEY (author_id) REFERENCES author (auth_id)
@@ -52,7 +52,7 @@ CREATE TABLE author_edition
 
 CREATE TABLE genre_edition
 (
-    isbn INTEGER NOT NULL,
+    isbn VARCHAR(25) NOT NULL,
     genre_id SMALLINT NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
     FOREIGN KEY (genre_id) REFERENCES genre (genre_id)
@@ -68,7 +68,7 @@ CREATE TABLE reader
 CREATE TABLE rented_edition
 (
     rent_id SERIAL PRIMARY KEY,
-    isbn INTEGER NOT NULL,
+    isbn VARCHAR(25) NOT NULL,
     reader_id SMALLINT NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
     FOREIGN KEY (reader_id) REFERENCES reader (reader_id)
@@ -84,7 +84,7 @@ CREATE TABLE review
 (
     review_id SERIAL PRIMARY KEY,
     review_content VARCHAR(500),
-    isbn INTEGER NOT NULL,
+    isbn VARCHAR(25) NOT NULL,
     reader_id SMALLINT NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
     FOREIGN KEY (reader_id) REFERENCES reader (reader_id)
