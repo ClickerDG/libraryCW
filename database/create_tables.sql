@@ -14,7 +14,7 @@ CREATE TABLE genre
 (
     genre_id SERIAL PRIMARY KEY,
     genre_name VARCHAR(256) NOT NULL,
-    genre_description VARCHAR (256)
+    genre_description text
 );
 
 CREATE TABLE role
