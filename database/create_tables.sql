@@ -89,3 +89,15 @@ CREATE TABLE review
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
     FOREIGN KEY (reader_id) REFERENCES reader (reader_id)
 );
+CREATE TABLE new_editions
+(
+    id SERIAL PRIMARY KEY,
+    isbn VARCHAR(25) NOT NULL,
+    FOREIGN KEY (isbn) REFERENCES edition (isbn)
+);
+CREATE TABLE archieve_editions
+(
+    id SERIAL PRIMARY KEY,
+    isbn VARCHAR(25) NOT NULL,
+    FOREIGN KEY (isbn) REFERENCES edition (isbn)
+);
