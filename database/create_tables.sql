@@ -91,8 +91,7 @@ CREATE TABLE review
 );
 CREATE TABLE new_editions
 (
-    id SERIAL PRIMARY KEY,
-    isbn VARCHAR(25) NOT NULL,
-    FOREIGN KEY (isbn) REFERENCES edition (isbn)
+    edition_isbn VARCHAR(25) NOT NULL,
+    FOREIGN KEY (edition_isbn) REFERENCES edition (isbn)
 );
 
