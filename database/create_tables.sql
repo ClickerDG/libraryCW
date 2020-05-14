@@ -95,9 +95,4 @@ CREATE TABLE new_editions
     isbn VARCHAR(25) NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn)
 );
-CREATE TABLE archieve_editions
-(
-    id SERIAL PRIMARY KEY,
-    isbn VARCHAR(25) NOT NULL,
-    FOREIGN KEY (isbn) REFERENCES edition (isbn)
-);
+
