@@ -1,7 +1,6 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author implements Serializable {
 
   @Id
