@@ -1,5 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +26,7 @@ public class Author implements Serializable {
   @Column(name = "full_name")
   private String fullName;
 
+  @JsonIgnoreProperties("authors")
   @ManyToMany(mappedBy = "authors")
   private Set<Edition> editions;
 }

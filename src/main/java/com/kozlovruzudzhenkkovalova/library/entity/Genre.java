@@ -1,5 +1,6 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,7 @@ public class Genre implements Serializable {
   @Column(name = "genre_description")
   private String description;
 
+  @JsonIgnoreProperties("genres")
   @ManyToMany(mappedBy = "genres")
   private Set<Edition> editions;
 

@@ -1,5 +1,6 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,7 @@ public class EditionType implements Serializable {
   @Column(name = "name_type")
   private String name;
 
+  @JsonIgnoreProperties("editionType")
   @OneToMany(mappedBy = "editionType", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<Edition> editions;
 }

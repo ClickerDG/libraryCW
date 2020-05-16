@@ -1,5 +1,6 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -48,6 +48,7 @@ public class User implements Serializable {
   @Column(name = "password")
   private String password;
 
+  @JsonIgnoreProperties("users")
   @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(
       name = "role_user",
@@ -56,9 +57,11 @@ public class User implements Serializable {
   )
   Set<Role> roles;
 
+  @JsonIgnoreProperties("user")
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<Review> reviews;
 
+  @JsonIgnoreProperties("user")
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
 }
