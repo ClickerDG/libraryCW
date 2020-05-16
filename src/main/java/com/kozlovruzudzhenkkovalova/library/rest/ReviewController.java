@@ -26,7 +26,7 @@ public class ReviewController {
     return ResponseEntity.ok(reviewService.findAllReviewForBook(bookName));
   }
 
-  @PostMapping
+  @PostMapping("/add")
   public ResponseEntity<?> addReview(@RequestBody ReviewDto reviewDto) {
     try {
       reviewService.addReviewForBook(reviewDto);

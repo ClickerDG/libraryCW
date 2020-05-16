@@ -49,7 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(securityUrisProperties.getUnauthorized().toArray(new String[0])).permitAll()
         .antMatchers(securityUrisProperties.getUser().toArray(new String[0])).hasRole("USER")
-        .antMatchers("/test/admin*/**").hasRole("ADMIN")
+        .anyRequest().hasRole("ADMIN")
         .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
