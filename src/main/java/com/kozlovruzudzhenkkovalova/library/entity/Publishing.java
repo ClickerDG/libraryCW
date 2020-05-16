@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -24,6 +25,6 @@ public class Publishing implements Serializable {
   @Column(name = "full_name")
   private String fullName;
 
-  @OneToMany(mappedBy = "publishing", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+  @OneToMany(mappedBy = "publishing", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<Edition> editions;
 }

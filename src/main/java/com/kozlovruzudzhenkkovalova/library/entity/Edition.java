@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class Edition implements Serializable {
   @JoinColumn(name = "type_id", nullable = false)
   private EditionType editionType;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
       name = "genre_edition",
       joinColumns = {@JoinColumn(name = "isbn")},
@@ -54,7 +55,7 @@ public class Edition implements Serializable {
   @JoinColumn(name = "publish_id", nullable = false)
   private Publishing publishing;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
       name = "author_edition",
       joinColumns = {@JoinColumn(name = "isbn")},
@@ -67,5 +68,8 @@ public class Edition implements Serializable {
 
   @OneToMany(mappedBy = "edition", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
+
+  @OneToOne(mappedBy = "edition")
+  private NewEdition newEdition;
 
 }

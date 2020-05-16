@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,17 +37,6 @@ public class User implements Serializable {
   @Size(min = 3, max = 100)
   private String fullName;
 
-  @Column(name = "birth")
-  private Date birthDate;
-
-  @Column(name = "address", length = 100)
-  @Size(min = 5, max = 100)
-  private String address;
-
-  @Column(name = "passport", length = 50)
-  @Size(min = 5, max = 50)
-  private String passport;
-
   @Column(name = "phone", length = 15)
   @Size(min = 4, max = 15)
   private String phoneNumber;
@@ -66,10 +56,9 @@ public class User implements Serializable {
   )
   Set<Role> roles;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<Review> reviews;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
-
 }

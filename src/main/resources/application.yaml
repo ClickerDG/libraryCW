@@ -7,3 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+security-config:
+  unauthorized: /error, /webclient,  /register, /books, /books/getNewBooks /genres, /authors, /review, /publishing, /editionTyp, /authenticate, /test/anyone
+  user: /test/user*/**, /books/rent, /books/addReview/, /books/getRented/

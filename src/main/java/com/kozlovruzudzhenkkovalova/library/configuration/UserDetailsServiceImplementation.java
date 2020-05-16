@@ -4,21 +4,19 @@ import com.kozlovruzudzhenkkovalova.library.entity.Role;
 import com.kozlovruzudzhenkkovalova.library.entity.User;
 import com.kozlovruzudzhenkkovalova.library.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
-@RequiredArgsConstructor
 @Service("userDetailsService")
-@Slf4j
+@Transactional
+@RequiredArgsConstructor
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -29,13 +27,13 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
       User user = userRepository.findByUsername(username).orElseThrow(
           () -> new UsernameNotFoundException("User not found."));
 
-      Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-      for (Role role : user.getRoles()) {
-        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-      }
-
       return new org.springframework.security.core.userdetails.User(
-          user.getUsername(), user.getPassword(), grantedAuthorities);
+          user.getUsername(), user.getPassword(), getAuthorities(user));
+  }
+
+  private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
+      String[] userRoles = user.getRoles().stream().map((role) -> "ROLE_" + role.getName().toUpperCase()).toArray(String[]::new);
+    return AuthorityUtils.createAuthorityList(userRoles);
   }
 
 }
