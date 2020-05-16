@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EditionTypeRepository extends JpaRepository<EditionType, Long> {
+  EditionType findByName(String name);
 }

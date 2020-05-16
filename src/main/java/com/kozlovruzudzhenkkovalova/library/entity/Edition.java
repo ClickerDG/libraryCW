@@ -1,6 +1,11 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
@@ -21,7 +26,10 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Edition implements Serializable {
 
   @Id
@@ -39,10 +47,12 @@ public class Edition implements Serializable {
   @Column(name = "image_url")
   private String imageUrl;
 
+  @JsonIgnoreProperties("editions")
   @ManyToOne
   @JoinColumn(name = "type_id", nullable = false)
   private EditionType editionType;
 
+  @JsonIgnoreProperties("editions")
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
       name = "genre_edition",
@@ -51,10 +61,12 @@ public class Edition implements Serializable {
   )
   private Set<Genre> genres;
 
+  @JsonIgnoreProperties("editions")
   @ManyToOne
   @JoinColumn(name = "publish_id", nullable = false)
   private Publishing publishing;
 
+  @JsonIgnoreProperties("editions")
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
       name = "author_edition",
@@ -63,12 +75,15 @@ public class Edition implements Serializable {
   )
   private Set<Author> authors;
 
+  @JsonIgnoreProperties("edition")
   @OneToMany(mappedBy = "edition", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<Review> reviews;
 
+  @JsonIgnoreProperties("edition")
   @OneToMany(mappedBy = "edition", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   private Set<RentedEdition> rentedEditions;
 
+  @JsonIgnoreProperties("edition")
   @OneToOne(mappedBy = "edition")
   private NewEdition newEdition;
 

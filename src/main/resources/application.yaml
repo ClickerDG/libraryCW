@@ -1,5 +1,3 @@
-server:
-  port: 8000
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/library
@@ -11,5 +9,5 @@ spring:
       ddl-auto: update
 
 security-config:
-  unauthorized: /error, /webclient,  /register, /books, /books/getNewBooks /genres, /authors, /review, /publishing, /editionType, /authenticate, /test/anyone
-  user: /test/user*/**, /books/rent, /books/addReview/, /books/getRented/
+  unauthorized: /register, /books*/**, /genres, /authors, /review, /publishing, /editionType, /authenticate
+  user: /books/rent, /review/add

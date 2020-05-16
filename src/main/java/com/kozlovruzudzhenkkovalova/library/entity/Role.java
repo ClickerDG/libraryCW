@@ -1,5 +1,7 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +33,7 @@ public class Role implements Serializable {
   @Size(min = 3, max = 35)
   private String name;
 
+  @JsonIgnoreProperties("roles")
   @ManyToMany(mappedBy = "roles")
   private Set<User> users;
 }
