@@ -5,10 +5,12 @@ import com.kozlovruzudzhenkkovalova.library.entity.NewEdition;
 import com.kozlovruzudzhenkkovalova.library.repositories.EditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.NewEditionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 @RequiredArgsConstructor
 public class BookService {
 
@@ -22,4 +24,5 @@ public class BookService {
   public List<Edition> searchAllNewBooks() {
     return newEditionRepository.findAll().stream().map(NewEdition::getEdition).collect(Collectors.toList());
   }
+
 }

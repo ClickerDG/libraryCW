@@ -31,7 +31,7 @@ public class BookController {
     return ResponseEntity.ok(bookService.searchAllNewBooks());
   }
 
-  @PostMapping("/byAuthors")
+ /* @PostMapping("/byAuthors")
   public List<Edition> searchByAuthors(@RequestBody List<String> authorsNames) {
 
   }
@@ -59,6 +59,6 @@ public class BookController {
   @PostMapping("/byEditionType")
   public List<Edition> searchByEditionTypes(@RequestBody List<String> editionTypeNames) {
 
-  }
+  }*/
 
 }
