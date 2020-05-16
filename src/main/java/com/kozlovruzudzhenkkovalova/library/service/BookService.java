@@ -15,6 +15,7 @@ import com.kozlovruzudzhenkkovalova.library.repositories.PublishingRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.RentedEditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -47,6 +48,7 @@ public class BookService {
   public List<Edition> searchAllNewBooks() {
     return newEditionRepository.findAll().stream().map(NewEdition::getEdition).collect(Collectors.toList());
   }
+
 
   public List<Edition> searchByAuthors(List<String> authorNames) {
     return editionRepository.findByAuthorsFullNameIn(authorNames);

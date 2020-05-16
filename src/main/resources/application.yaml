@@ -9,6 +9,5 @@ spring:
       ddl-auto: update
 
 security-config:
-  unauthorized: /error, /webclient,  /register, /books/byAuthors, /books/getNewBooks /genres, /authors, /review, /publishing, /editionTyp, /authenticate, /test/anyone
-  user: /test/user*/**, /books/rent, /books/addReview/, /books/rent
-
+  unauthorized: /error, /webclient,  /register, /books, /books/getNewBooks /genres, /authors, /review, /publishing, /editionType, /authenticate, /test/anyone
+  user: /test/user*/**, /books/rent, /books/addReview/, /books/getRented/

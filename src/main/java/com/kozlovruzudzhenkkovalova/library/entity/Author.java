@@ -15,7 +15,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author implements Serializable {
 
   @Id
