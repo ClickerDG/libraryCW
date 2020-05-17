@@ -83,7 +83,7 @@ CREATE TABLE role_user
 CREATE TABLE review
 (
     review_id SERIAL PRIMARY KEY,
-    review_content VARCHAR(500),
+    review_content VARCHAR(1000),
     isbn VARCHAR(25) NOT NULL,
     reader_id SMALLINT NOT NULL,
     FOREIGN KEY (isbn) REFERENCES edition (isbn),
