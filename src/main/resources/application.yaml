@@ -10,4 +10,4 @@ spring:
 
 security-config:
   unauthorized: /register, /books*/**, /genres, /authors, /review, /publishing, /editionType, /authenticate
-  user: /books/rent, /review/add
+  user: /books/rent, /review/add, /user, /user/byName

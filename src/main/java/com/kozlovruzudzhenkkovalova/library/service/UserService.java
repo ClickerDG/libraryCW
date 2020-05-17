@@ -5,11 +5,11 @@ import com.kozlovruzudzhenkkovalova.library.entity.Role;
 import com.kozlovruzudzhenkkovalova.library.entity.User;
 import com.kozlovruzudzhenkkovalova.library.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +35,10 @@ public class UserService {
     var foundedUser = userRepository.findByUsername(user.getUsername())
         .orElseThrow(() -> new UsernameNotFoundException("No such user"));
     userRepository.save(foundedUser);
+  }
+
+  public Optional<User> searchByName(String name) {
+    return userRepository.findByUsername(name);
   }
 
   public User addUser(UserDto userDto) {
