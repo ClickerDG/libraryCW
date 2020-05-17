@@ -5,7 +5,6 @@ import com.kozlovruzudzhenkkovalova.library.dto.RentedEditionDto;
 import com.kozlovruzudzhenkkovalova.library.entity.Edition;
 import com.kozlovruzudzhenkkovalova.library.entity.NewEdition;
 import com.kozlovruzudzhenkkovalova.library.entity.RentedEdition;
-import com.kozlovruzudzhenkkovalova.library.entity.User;
 import com.kozlovruzudzhenkkovalova.library.repositories.AuthorRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.EditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.EditionTypeRepository;
@@ -15,17 +14,14 @@ import com.kozlovruzudzhenkkovalova.library.repositories.PublishingRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.RentedEditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

@@ -18,6 +18,7 @@ public class AuthorService {
     public List<Author> findAllAuthors() {
         return authorRepository.findAll();
     }
+
     public Author addAuthor(AuthorDto authorDto) {
 
         var author = Author.builder()
@@ -25,6 +26,7 @@ public class AuthorService {
                 .build();
         return addAuthor(author);
     }
+
     private Author addAuthor(Author author) {
         authorRepository.findByFullName(author.getFullName()).ifPresent(thisAuthor -> {
             throw new IllegalArgumentException(
@@ -33,6 +35,7 @@ public class AuthorService {
         authorRepository.save(author);
         return author;
     }
+
     public void deleteAuthor(AuthorDto author) {
         var foundedAuthor = authorRepository.findByFullName(author.getFullName())
                 .orElseThrow(() -> new UsernameNotFoundException("No such author"));

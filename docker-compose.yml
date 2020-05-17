@@ -8,3 +8,12 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secretpassword
       - POSTGRES_DB=library
+  library-app:
+    build: ./
+    expose:
+      - "8080"
+    ports:
+    - 8080:8080
+    environment:
+      - dbusername=postgres
+      - dbpassword=secretpassword

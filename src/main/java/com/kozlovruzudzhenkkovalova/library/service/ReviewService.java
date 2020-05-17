@@ -28,7 +28,7 @@ public class ReviewService {
   }
 
   public void addReviewForBook(ReviewDto reviewDto) {
-    Edition edition = editionRepository.findByName(reviewDto.getBookName())
+    var edition = editionRepository.findByName(reviewDto.getBookName())
         .orElseThrow(() -> new UsernameNotFoundException("No such book"));
     var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     var username = ((UserDetails) principal).getUsername();
