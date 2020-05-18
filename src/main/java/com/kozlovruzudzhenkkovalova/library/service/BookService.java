@@ -99,6 +99,7 @@ public class BookService {
         .publishing(publishing)
         .genres(genres)
         .editionType(editionType)
+        .description(editionDto.getDescription())
         .build();
 
     editionRepository.findByName(editionDto.getName()).ifPresent(thisBook -> {

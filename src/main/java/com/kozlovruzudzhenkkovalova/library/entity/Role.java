@@ -1,6 +1,5 @@
 package com.kozlovruzudzhenkkovalova.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +26,7 @@ import java.util.Set;
 public class Role implements Serializable {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "role_id", nullable = false)
+  @Column(name = "role_id", columnDefinition = "serial")
   private Long id;
 
   @Column(name = "role_name", nullable = false, unique = true, length = 35)

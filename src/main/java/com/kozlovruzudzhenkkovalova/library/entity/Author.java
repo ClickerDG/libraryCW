@@ -26,7 +26,7 @@ public class Author implements Serializable {
 
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "auth_id", nullable = false)
+  @Column(name = "auth_id", columnDefinition = "serial")
   private Long id;
 
   @Column(name = "full_name")

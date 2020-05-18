@@ -29,4 +29,5 @@ public class EditionDto {
 
   private Set<String> authorNames;
 
+  private String description;
 }

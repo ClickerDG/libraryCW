@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,9 +36,10 @@ import java.util.Set;
 public class Edition implements Serializable {
 
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "isbn", nullable = false)
-  private Long id;
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  @Column(name = "isbn")
+  private String id;
 
   @Column(name = "edition_name", nullable = false)
   private String name;
@@ -87,5 +90,9 @@ public class Edition implements Serializable {
   @JsonIgnoreProperties("edition")
   @OneToOne(mappedBy = "edition")
   private NewEdition newEdition;
+
+  @Lob
+  @Column(name = "edition_description")
+  private String description;
 
 }

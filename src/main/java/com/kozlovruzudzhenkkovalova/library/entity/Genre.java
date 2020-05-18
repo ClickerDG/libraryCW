@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -21,13 +22,14 @@ public class Genre implements Serializable {
 
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "genre_id", nullable = false)
+  @Column(name = "genre_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @Column(name = "genre_name", length = 50)
   @Size(min = 1, max = 50)
   private String name;
 
+  @Lob
   @Column(name = "genre_description")
   private String description;
 

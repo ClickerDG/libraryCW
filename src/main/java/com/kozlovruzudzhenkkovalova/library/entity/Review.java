@@ -27,7 +27,7 @@ public class Review implements Serializable {
 
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "review_id", nullable = false)
+  @Column(name = "review_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @JsonIgnoreProperties("reviews")

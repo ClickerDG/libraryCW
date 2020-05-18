@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
 public class NewEdition {
 
   @Id
-  private Long isbn;
+  private String isbn;
 
   @JsonIgnoreProperties("newEdition")
   @OneToOne(cascade = CascadeType.ALL)

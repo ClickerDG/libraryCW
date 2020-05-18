@@ -8,6 +8,7 @@ import com.kozlovruzudzhenkkovalova.library.repositories.EditionTypeRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.GenreRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.NewEditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.PublishingRepository;
+import com.kozlovruzudzhenkkovalova.library.service.AuthorService;
 import com.kozlovruzudzhenkkovalova.library.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,18 +40,20 @@ public class BookServiceTest {
   private EditionTypeRepository editionTypeRepository;
   @Mock
   private AuthorRepository authorRepository;
+  @Mock
+  private AuthorService authorService;
   @InjectMocks
   private BookService bookService;
 
   @Test
   public void shouldCallFindAll1Time(){
     bookService.searchAllBooks(Pageable.unpaged());
-    verify(editionRepository, times(1)).findAll();
+    verify(editionRepository, times(1)).findAll(Pageable.unpaged());
   }
 
   @Test
   public void shouldThrowExceptionCauseOfBookIsAlreadyExist() {
-    when(editionRepository.findByName("book1")).thenReturn(Optional.of(Edition.builder().id(1L).build()));
+    when(editionRepository.findByName("book1")).thenReturn(Optional.of(Edition.builder().id("1").build()));
     assertThrows(IllegalArgumentException.class,() -> bookService.addBook(EditionDto.builder()
         .authorNames(Set.of("author1"))
         .name("book1")
@@ -58,7 +61,7 @@ public class BookServiceTest {
         .genreNames(Set.of("horror", "drama"))
         .editionType("Journal")
         .build()));
-    verify(authorRepository, times(1)).findByFullNameIn(Set.of("author1"));
+    verify(authorRepository, times(2)).findByFullNameIn(Set.of("author1"));
     verify(publishingRepository, times(1)).findByFullName("Hello");
     verify(genreRepository, times(1)).findByNameIn(Set.of("horror", "drama"));
     verify(editionTypeRepository, times(1)).findByName("Journal");

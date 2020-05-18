@@ -21,7 +21,7 @@ import java.util.Set;
 public class Publishing implements Serializable {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "publish_id", nullable = false)
+  @Column(name = "publish_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @Column(name = "full_name")

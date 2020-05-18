@@ -26,7 +26,7 @@ import java.util.Date;
 public class RentedEdition implements Serializable {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "rent_id", nullable = false)
+  @Column(name = "rent_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @JsonIgnoreProperties("rentedEditions")
@@ -45,4 +45,6 @@ public class RentedEdition implements Serializable {
   @Column(name = "date_return")
   private Date dateReturn;
 
+  @Column(name = "is_returned")
+  private Boolean isReturned;
 }

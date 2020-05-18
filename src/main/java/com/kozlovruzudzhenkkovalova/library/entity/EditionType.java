@@ -22,7 +22,7 @@ import java.util.Set;
 public class EditionType implements Serializable {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "type_id", nullable = false)
+  @Column(name = "type_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @Column(name = "name_type")

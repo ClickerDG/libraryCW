@@ -39,7 +39,7 @@ public class AuthorServiceTest {
   @Test
   public void shouldCallAuthorRepositoryFindAllMethod1Time() {
     authorService.findAllAuthors(Pageable.unpaged());
-    verify(authorRepository, times(1)).findAll();
+    verify(authorRepository, times(1)).findAll(Pageable.unpaged());
 
   }
 

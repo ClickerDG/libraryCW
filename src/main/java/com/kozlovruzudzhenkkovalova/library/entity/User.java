@@ -31,7 +31,7 @@ import java.util.Set;
 public class User implements Serializable {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
-  @Column(name = "reader_id", nullable = false)
+  @Column(name = "reader_id", nullable = false, columnDefinition = "serial")
   private Long id;
 
   @Column(name = "full_name", length = 100)

@@ -22,7 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  private final RoleRepository roleRepository;
   private final UserDetailsService userDetailsServiceImplementation;
   private final SecurityUrisProperties securityUrisProperties;
   private final JwtRequestFilter jwtRequestFilter;
@@ -35,16 +34,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    roleRepository.findByName("user").orElseGet(() -> {
-      Role newUserRole = Role.builder().name("user").build();
-      roleRepository.save(newUserRole);
-      return newUserRole;
-    });
-    roleRepository.findByName("admin").orElseGet(() -> {
-      Role newAdminRole = Role.builder().name("admin").build();
-      roleRepository.save(newAdminRole);
-      return newAdminRole;
-    });
     http.csrf().disable()
         .authorizeRequests()
         .antMatchers(securityUrisProperties.getUnauthorized().toArray(new String[0])).permitAll()
