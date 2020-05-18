@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
@@ -19,8 +20,8 @@ import java.util.Set;
 @Entity
 public class Publishing implements Serializable {
   @Id
-  @GeneratedValue
-  @Column(name = "publish_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "publish_id", nullable = false)
   private Long id;
 
   @Column(name = "full_name")

@@ -1,7 +1,9 @@
 package com.kozlovruzudzhenkkovalova.library.service;
 
+import com.kozlovruzudzhenkkovalova.library.dto.AuthorDto;
 import com.kozlovruzudzhenkkovalova.library.dto.EditionDto;
 import com.kozlovruzudzhenkkovalova.library.dto.RentedEditionDto;
+import com.kozlovruzudzhenkkovalova.library.entity.Author;
 import com.kozlovruzudzhenkkovalova.library.entity.Edition;
 import com.kozlovruzudzhenkkovalova.library.entity.NewEdition;
 import com.kozlovruzudzhenkkovalova.library.entity.RentedEdition;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +39,7 @@ public class BookService {
   private final EditionTypeRepository editionTypeRepository;
   private final RentedEditionRepository rentedEditionRepository;
   private final UserRepository userRepository;
+  private final AuthorService authorService;
 
   public List<Edition> searchAllBooks() {
     return editionRepository.findAll();
@@ -75,6 +79,14 @@ public class BookService {
     var publishing = publishingRepository.findByFullName(editionDto.getPublishingName());
     var genres = genreRepository.findByNameIn(editionDto.getGenreNames());
     var editionType = editionTypeRepository.findByName(editionDto.getEditionType());
+
+    var listOfNotFoundAuthors = editionDto.getAuthorNames();
+    var foundedAuthors = authors.stream().map(Author::getFullName).collect(Collectors.toList());
+    listOfNotFoundAuthors.removeAll(foundedAuthors);
+    for (String authorName: listOfNotFoundAuthors) {
+      authorService.addAuthor(AuthorDto.builder().fullName(authorName).build());
+    }
+    authors = authorRepository.findByFullNameIn(editionDto.getAuthorNames());
 
     var edition = Edition.builder()
         .name(editionDto.getName())

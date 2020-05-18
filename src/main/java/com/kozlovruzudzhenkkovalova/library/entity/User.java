@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,8 +30,8 @@ import java.util.Set;
 @Entity(name = "reader")
 public class User implements Serializable {
   @Id
-  @GeneratedValue
-  @Column(name = "reader_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "reader_id", nullable = false)
   private Long id;
 
   @Column(name = "full_name", length = 100)

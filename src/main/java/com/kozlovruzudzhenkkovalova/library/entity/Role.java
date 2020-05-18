@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
@@ -25,8 +26,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class Role implements Serializable {
   @Id
-  @GeneratedValue
-  @Column(name = "role_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "role_id", nullable = false)
   private Long id;
 
   @Column(name = "role_name", nullable = false, unique = true, length = 35)

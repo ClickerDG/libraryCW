@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
@@ -24,8 +25,8 @@ import java.util.Set;
 public class Author implements Serializable {
 
   @Id
-  @GeneratedValue
-  @Column(name = "auth_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "auth_id", nullable = false)
   private Long id;
 
   @Column(name = "full_name")

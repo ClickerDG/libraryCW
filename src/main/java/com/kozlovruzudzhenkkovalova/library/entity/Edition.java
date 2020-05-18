@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -33,8 +34,8 @@ import java.util.Set;
 public class Edition implements Serializable {
 
   @Id
-  @GeneratedValue
-  @Column(name = "isbn")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "isbn", nullable = false)
   private Long id;
 
   @Column(name = "edition_name", nullable = false)

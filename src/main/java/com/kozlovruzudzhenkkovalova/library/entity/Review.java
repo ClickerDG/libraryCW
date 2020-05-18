@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,8 +26,8 @@ import java.io.Serializable;
 public class Review implements Serializable {
 
   @Id
-  @GeneratedValue
-  @Column(name = "review_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "review_id", nullable = false)
   private Long id;
 
   @JsonIgnoreProperties("reviews")

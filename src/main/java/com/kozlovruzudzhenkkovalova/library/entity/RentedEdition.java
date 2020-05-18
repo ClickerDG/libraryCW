@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,8 +25,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class RentedEdition implements Serializable {
   @Id
-  @GeneratedValue
-  @Column(name = "rent_id")
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  @Column(name = "rent_id", nullable = false)
   private Long id;
 
   @JsonIgnoreProperties("rentedEditions")
