@@ -34,6 +34,21 @@ public class UserService {
   public void updateUser(UserDto user) {
     var foundedUser = userRepository.findByUsername(user.getUsername())
         .orElseThrow(() -> new UsernameNotFoundException("No such user"));
+    if(user.getPassword() != null) {
+      foundedUser.setPassword(user.getPassword());
+    }
+    if(user.getFullName() != null) {
+      foundedUser.setFullName(user.getFullName());
+    }
+    if(user.getPhoneNumber() != null) {
+      foundedUser.setPhoneNumber(user.getPhoneNumber());
+    }
+    if(user.getRoles() != null && !user.getRoles().isEmpty()) {
+      Set<Role> roleList = user.getRoles().stream()
+          .map(roleService::findRoleByName)
+          .collect(Collectors.toSet());
+      foundedUser.setRoles(roleList);
+    }
     userRepository.save(foundedUser);
   }
 
