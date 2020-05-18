@@ -4,6 +4,8 @@ import com.kozlovruzudzhenkkovalova.library.dto.AuthorDto;
 import com.kozlovruzudzhenkkovalova.library.entity.Author;
 import com.kozlovruzudzhenkkovalova.library.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,8 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    public List<Author> findAllAuthors() {
-        return authorRepository.findAll();
+    public Page<Author> findAllAuthors(Pageable pageable) {
+        return authorRepository.findAll(pageable);
     }
 
     public Author addAuthor(AuthorDto authorDto) {

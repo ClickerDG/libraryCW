@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class AuthorServiceTest {
 
   @Test
   public void shouldCallAuthorRepositoryFindAllMethod1Time() {
-    authorService.findAllAuthors();
+    authorService.findAllAuthors(Pageable.unpaged());
     verify(authorRepository, times(1)).findAll();
 
   }

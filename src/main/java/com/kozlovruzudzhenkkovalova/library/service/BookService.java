@@ -16,15 +16,18 @@ import com.kozlovruzudzhenkkovalova.library.repositories.PublishingRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.RentedEditionRepository;
 import com.kozlovruzudzhenkkovalova.library.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,52 +44,52 @@ public class BookService {
   private final UserRepository userRepository;
   private final AuthorService authorService;
 
-  public List<Edition> searchAllBooks() {
-    return editionRepository.findAll();
+  public Page<Edition> searchAllBooks(Pageable pageable) {
+    return editionRepository.findAll(pageable);
   }
 
-  public List<Edition> searchAllNewBooks() {
-    return newEditionRepository.findAll().stream().map(NewEdition::getEdition).collect(Collectors.toList());
+  public List<Edition> searchAllNewBooks(Pageable pageable) {
+    return newEditionRepository.findAll(pageable).stream().map(NewEdition::getEdition).collect(Collectors.toList());
   }
 
 
-  public List<Edition> searchByAuthors(List<String> authorNames) {
-    return editionRepository.findByAuthorsFullNameIn(authorNames);
+  public Page<Edition> searchByAuthors(List<String> authorNames, Pageable pageable) {
+    return editionRepository.findByAuthorsFullNameIn(authorNames, pageable);
   }
 
-  public List<Edition> searchByName(String name) {
-    return editionRepository.findByNameLike(name);
+  public Page<Edition> searchByName(String name, Pageable pageable) {
+    return editionRepository.findByNameLike(name, pageable);
   }
 
-  public List<Edition> searchByGenres(List<String> genres) {
-    return editionRepository.findByGenresNameIn(genres);
+  public Page<Edition> searchByGenres(List<String> genres, Pageable pageable) {
+    return editionRepository.findByGenresNameIn(genres, pageable);
   }
 
-  public List<Edition> searchByPublishing(List<String> publishingName) {
-    return editionRepository.findByPublishingFullNameIn(publishingName);
+  public Page<Edition> searchByPublishing(List<String> publishingName, Pageable pageable) {
+    return editionRepository.findByPublishingFullNameIn(publishingName, pageable);
   }
 
-  public List<Edition> searchByYear(String year) {
-    return editionRepository.findByYear(year);
+  public Page<Edition> searchByYear(String year, Pageable pageable) {
+    return editionRepository.findByYear(year, pageable);
   }
 
-  public List<Edition> searchByEditionTypes(List<String> editionTypeNames) {
-    return editionRepository.findByEditionTypeNameIn(editionTypeNames);
+  public Page<Edition> searchByEditionTypes(List<String> editionTypeNames, Pageable pageable) {
+    return editionRepository.findByEditionTypeNameIn(editionTypeNames, pageable);
   }
 
   public void addBook(EditionDto editionDto) {
-    var authors = authorRepository.findByFullNameIn(editionDto.getAuthorNames());
+    var authorNames = editionDto.getAuthorNames();
+    var authors = authorRepository.findByFullNameIn(authorNames);
     var publishing = publishingRepository.findByFullName(editionDto.getPublishingName());
     var genres = genreRepository.findByNameIn(editionDto.getGenreNames());
     var editionType = editionTypeRepository.findByName(editionDto.getEditionType());
-
-    var listOfNotFoundAuthors = editionDto.getAuthorNames();
+    var listOfNotFoundAuthors = new HashSet<>(authorNames);
     var foundedAuthors = authors.stream().map(Author::getFullName).collect(Collectors.toList());
     listOfNotFoundAuthors.removeAll(foundedAuthors);
     for (String authorName: listOfNotFoundAuthors) {
       authorService.addAuthor(AuthorDto.builder().fullName(authorName).build());
     }
-    authors = authorRepository.findByFullNameIn(editionDto.getAuthorNames());
+    authors = authorRepository.findByFullNameIn(authorNames);
 
     var edition = Edition.builder()
         .name(editionDto.getName())

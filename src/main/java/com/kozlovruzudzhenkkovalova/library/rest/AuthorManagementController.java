@@ -5,10 +5,12 @@ import com.kozlovruzudzhenkkovalova.library.entity.Author;
 import com.kozlovruzudzhenkkovalova.library.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +21,8 @@ public class AuthorManagementController {
     private final AuthorService authorService;
 
     @GetMapping
-    public List<Author> getAllAuthors(){
-        return authorService.findAllAuthors();
+    public Page<Author> getAllAuthors(@PageableDefault Pageable pageable){
+        return authorService.findAllAuthors(pageable);
     }
 
     @PostMapping("/add")
